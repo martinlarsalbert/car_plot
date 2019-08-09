@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bokeh Scatter Plots</title>
+
+        <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
+
+        <!-- COPY/PASTE SCRIPT HERE -->
+
+    </head>
+    <body>
+
+        <form action="/">
+            <select name="y_column">
+            	{% for value in y_columns %}
+            		{% if value == y_column %}
+            			<option selected value="{{ value }}">{{ value }}</option>
+            		{% else %}
+            			<option value="{{ value }}">{{ value }}</option>
+            		{% endif %}
+            	{% endfor %}
+            </select>
+            <input type="submit">
+        </form>
+
+        <!-- INSERT DIVS HERE -->
+        {{ script|safe }}
+        {{ div|safe }}
+    </body>
+</html>
