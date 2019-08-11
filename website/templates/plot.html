@@ -21,6 +21,17 @@
             		{% endif %}
             	{% endfor %}
             </select>
+
+            <select name="x_column">
+            	{% for value in y_columns %}
+            		{% if value == x_column %}
+            			<option selected value="{{ value }}">{{ value }}</option>
+            		{% else %}
+            			<option value="{{ value }}">{{ value }}</option>
+            		{% endif %}
+            	{% endfor %}
+            </select>
+
             <input type="submit">
         </form>
 

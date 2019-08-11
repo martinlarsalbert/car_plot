@@ -17,10 +17,11 @@ def load_data():
 
 
 df_cars = load_data()
-y_columns = list(df_cars.columns)
+numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+y_columns = list(df_cars.select_dtypes(include=numerics))
 
 # Create the main plot
-def create_figure(y_column, bins):
+def create_figure(y_column,x_column):
 
     df_cars = load_data()
     source = ColumnDataSource(data=df_cars)
@@ -35,7 +36,7 @@ def create_figure(y_column, bins):
 
     p = figure(title='Cars', tools=[hover])
 
-    x_column = 'Tillverkningsår'
+    #x_column = 'Tillverkningsår'
     #y_column = 'price'
 
     markers = ['circle']
@@ -59,12 +60,16 @@ def index():
     if y_column == None:
         y_column = "price"
 
+    x_column = request.args.get("x_column")
+    if x_column == None:
+        x_column = "Tillverkningsår"
+
     # Create the plot
-    plot = create_figure(y_column, 10)
+    plot = create_figure(y_column, x_column)
 
     # Embed plot into HTML via Flask Render
     script, div = components(plot)
-    return render_template("plot.html", script=script, div=div,y_column = y_column,y_columns = y_columns)
+    return render_template("plot.html", script=script, div=div,y_column = y_column,x_column = x_column,y_columns = y_columns)
 
 
 # With debug=True, Flask server will auto-reload
